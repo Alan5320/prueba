@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Prueba</title>
+    <link rel="icon" href="{{assets.main_ico}}" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+{% include "static/html/header.html" %}
+
+<!-- Main Container -->
+<div class="container py-4">
+
+    <!-- Hero Section -->
+    <div style="height: 80vh;" class="row align-items-center mb-5">
+        <div class="col-md-6">
+            <h1 class="display-5">Los mejores productos de Prebel</h1>
+            <p class="lead">Haz click para consultar los productos de la base de datos de los mejores productos de Prebel</p>
+            <a href="?consultar=true" class="btn generic_btn btn-lg">Consultar</a>
+        </div>
+        <div class="col-md-6 text-end">
+            <!-- Tabla para mostrar los productos, solo se muestra si hay productos -->
+            {% if productos %}
+                <div id="productos_table">
+                    <h3>Productos Consultados</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Código Producto</th>
+                                <th>Nombre Producto</th>
+                                <th>Cantidad</th>
+                                <th>Fecha de Compra</th>
+                                <th>Número de Factura</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for producto in productos %}
+                                <tr>
+                                    <td>{{ producto.codigo_producto }}</td>
+                                    <td>{{ producto.nombre_producto }}</td>
+                                    <td>{{ producto.cantidad }}</td>
+                                    <td>{{ producto.fecha_compra }}</td>
+                                    <td>{{ producto.numero_factura }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% elif request.GET.consultar %}
+                <div class="alert alert-warning" role="alert">
+                    No hay productos disponibles en la base de datos.
+                </div>
+            {% endif %}
+        
+
+        </div>
+    </div>
+
+    
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    body{
+        scroll-behavior: smooth;
+    }
+
+    .generic_btn {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #019a85;
+        --bs-btn-border-color: #019a85;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #029b86;
+        --bs-btn-hover-border-color: #03705f;
+        --bs-btn-focus-shadow-rgb: 49, 132, 253;
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #03705f;
+        --bs-btn-active-border-color: #03705f;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        --bs-btn-disabled-color: #fff;
+        --bs-btn-disabled-bg: #03705f;
+        --bs-btn-disabled-border-color: #03705f;
+    }
+</style>
+
+</body>
+</html>
